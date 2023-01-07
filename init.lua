@@ -293,6 +293,12 @@ local config = {
                                 end
                         },
                         {
+                                'leoluz/nvim-dap-go',
+                                config = function()
+                                        require("dap-go").setup()
+                                end
+                        },
+                        {
                                 'Pocco81/dap-buddy.nvim'
                         }
                         -- You can also add new plugins here as well:
