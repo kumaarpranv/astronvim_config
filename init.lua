@@ -226,6 +226,10 @@ local config = {
                         ["<leader>j"] = { "<cmd>lprev<CR>zz" },
                         ["<leader>s"] = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]] },
                         ["<leader>sc"] = { [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]] },
+                        ["<leader>dc"] = { ":lua require'dap'.continue()<CR>" },
+                        ["<leader>d,"] = { ":lua require'dap'.step_over()<CR>" },
+                        ["<leader>d."] = { ":lua require'dap'.step_into()<CR>" },
+                        ["<leader>db"] = { ":lua require'dap'.toggle_breakpoint()<CR>" },
                 },
                 v = {
                         ["J"] = { ":m '>+1<CR>gv=gv" },
@@ -258,6 +262,38 @@ local config = {
                                         }
                                         require('onedark').load()
                                 end,
+                        },
+                        { 'mfussenegger/nvim-dap',
+                                config = function()
+                                        local dap = require('dap')
+                                        dap.configurations.python = {
+                                                {
+                                                        type = 'python';
+                                                        request = 'launch';
+                                                        name = "Launch file";
+                                                        program = "${file}";
+                                                        pythonPath = function()
+                                                                return 'C:\\Users\\kumaa\\miniconda3\\python.exe'
+                                                        end;
+                                                },
+                                        }
+                                end,
+                        },
+                        {
+                                'rcarriga/nvim-dap-ui',
+                                config = function()
+                                        require("dapui").setup()
+                                        vim.keymap.set("n", "<leader>du", ":lua require'dapui'.toggle()<CR>")
+                                end
+                        },
+                        {
+                                'mfussenegger/nvim-dap-python',
+                                config = function()
+                                        require("dap-python").setup('C:\\Users\\kumaa\\miniconda3\\python.exe')
+                                end
+                        },
+                        {
+                                'Pocco81/dap-buddy.nvim'
                         }
                         -- You can also add new plugins here as well:
                         -- Add plugins, the packer syntax without the "use"
